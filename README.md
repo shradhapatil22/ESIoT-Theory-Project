@@ -1,0 +1,3 @@
+Implementation of Switch-Based Counting and Serial Communication using UART in an Embedded System
+
+Problem Statement: Read the status of switch connected to p1.0. if switch is ‘0’, implement 8 bit even count on p2. if switch is ‘1’ implement 8-bit odd count on p2. send the characters "even " for even count and the characters "odd" for odd count serially UART at 2400 baud, 8-bit data and 1-stop bit.

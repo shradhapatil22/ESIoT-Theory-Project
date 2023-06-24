@@ -9,17 +9,38 @@ void UART_Init() {
     TR1 = 1; // Start Timer 1
 }
 
-//Main
+// Function to transmit a character via UART
+void UART_Transmit(char ch) 
+{
+    SBUF = ch;
+    while (!TI); // Wait until transmission is complete
+    TI = 0; // Reset transmission flag
+}
+
+// Function to transmit a string via UART
+void UART_TransmitString(char* str)
+{
+    while (*str != '\0') {
+        UART_Transmit(*str);
+        str++;
+    }
+}
+
 void main()
 {
+   // unsigned char switchStatus;
     unsigned char count = 0;
     UART_Init(); // Initialize UART
-	  switchPin=1;  // set P1 as input
+	switchPin=1;  // set P1 as input
+     while (1) {
+        //switchStatus = switchPin; // Read the status of the switch connected to P1.0
 
-    while (1)
-    {
-        if (switchPin == 1) 
-        {
+        if (switchPin == 0) {
+            // Implement 8-bit even count on P2
+            P2 = count;
+            count += 2;
+            UART_TransmitString("EVEN ");
+        } else {
             // Implement 8-bit odd count on P2
             P2 = count + 1;
             count += 2;
